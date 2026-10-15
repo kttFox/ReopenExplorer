@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        rid: [win-x64, win-arm64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Publish
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}".TrimStart("v")
+          dotnet publish ReopenExplorer/ReopenExplorer.csproj `
+            -c Release -r ${{ matrix.rid }} --self-contained false `
+            -p:PublishSingleFile=true -p:Version=$version `
+            -o publish/${{ matrix.rid }}
+
+      - name: Package
+        shell: pwsh
+        run: |
+          Compress-Archive -Path publish/${{ matrix.rid }}/* `
+            -DestinationPath ReopenExplorer-${{ github.ref_name }}-${{ matrix.rid }}.zip
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ReopenExplorer-${{ github.ref_name }}-${{ matrix.rid }}.zip
+          generate_release_notes: true
