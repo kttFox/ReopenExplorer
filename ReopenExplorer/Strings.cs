@@ -101,6 +101,7 @@ static class S
 	public static string ShowHistory => G();
 	public static string RestoreLatest => G();
 	public static string RecentlyClosed => G();
+	public static string Favorites => G();
 	public static string SettingsMenu => G();
 	public static string Exit => G();
 	public static string HotkeyInUse( string k ) => F( nameof( HotkeyInUse ), k );
@@ -122,6 +123,8 @@ static class S
 	public static string OpenLocation => G();
 	public static string OpenLocationTip => G();
 	public static string CopyPath => G();
+	public static string Favorite => G();
+	public static string FavoriteTip => G();
 	public static string Delete => G();
 	public static string DeleteTip => G();
 	public static string ClearAll => G();

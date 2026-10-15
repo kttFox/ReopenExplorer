@@ -36,6 +36,8 @@ partial class HistoryForm : Form
 		openLocationButton.Text = S.OpenLocation;
 		openLocationButton.ToolTipText = S.OpenLocationTip;
 		copyPathButton.Text = S.CopyPath;
+		favoriteButton.Text = S.Favorite;
+		favoriteButton.ToolTipText = S.FavoriteTip;
 		deleteButton.Text = S.Delete;
 		deleteButton.ToolTipText = S.DeleteTip;
 		clearAllButton.Text = S.ClearAll;
@@ -63,12 +65,13 @@ partial class HistoryForm : Form
 		string q = searchBox.Text.Trim();
 		var items = app.ClosedEntries.Where(e => q == "" ||
 			(e.Title ?? "").IndexOf(q, StringComparison.OrdinalIgnoreCase) >= 0 ||
-			e.History.Any(h => h.IndexOf(q, StringComparison.OrdinalIgnoreCase) >= 0));
+			e.History.Any(h => h.IndexOf(q, StringComparison.OrdinalIgnoreCase) >= 0))
+			.OrderByDescending(e => e.Favorite); // お気に入りを上に（安定ソートなので各グループ内は新しい順のまま）
 
 		list.BeginUpdate();
 		list.Items.Clear();
 		foreach (var e in items) {
-			var it = new ListViewItem(new[] { e.Title, e.Current, e.History.Count.ToString(), e.ClosedAt.ToString(S.DateFormat) }) { Tag = e };
+			var it = new ListViewItem(new[] { e.Favorite ? "★" : "", e.Title, e.Current, e.History.Count.ToString(), e.ClosedAt.ToString(S.DateFormat) }) { Tag = e };
 			it.Selected = keep.Contains(e);
 			list.Items.Add(it);
 		}
@@ -125,13 +128,24 @@ partial class HistoryForm : Form
 		}
 	}
 
+	void ToggleFavorite() {
+		var sel = Selected();
+		if (sel.Count > 0) {
+			app.SetFavorite(sel, !sel.All(c => c.Favorite)); // 全部お気に入りなら解除、それ以外は登録
+		}
+	}
+
+	void favoriteButton_Click(object sender, EventArgs e) {
+		ToggleFavorite();
+	}
+
 	void deleteButton_Click(object sender, EventArgs e) {
 		app.Remove(Selected());
 	}
 
 	void clearAllButton_Click(object sender, EventArgs e) {
 		if (MessageBox.Show(this, S.ClearAllConfirm, Text, MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK) {
-			app.Remove(app.ClosedEntries.ToList());
+			app.Remove(app.ClosedEntries.Where(c => !c.Favorite).ToList()); // お気に入りは残す
 		}
 	}
 
@@ -157,6 +171,9 @@ partial class HistoryForm : Form
 		}
 		if (e.KeyCode == Keys.Delete) {
 			app.Remove(Selected());
+		}
+		if (e.KeyCode == Keys.D && e.Control) {
+			ToggleFavorite();
 		}
 		if (e.KeyCode == Keys.A && e.Control) {
 			foreach (ListViewItem it in list.Items) {

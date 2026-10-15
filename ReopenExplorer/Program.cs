@@ -15,6 +15,7 @@ public class ClosedEntry {
 	public List<string> History { get; set; } // 戻る/進む履歴（古い順）
 	public int Position { get; set; }         // History内の現在位置
 	public DateTime ClosedAt { get; set; }
+	public bool Favorite { get; set; }        // お気に入り（上限で消えず、復元しても残る）
 	[JsonIgnore] public string Current { get { return History[Position]; } }
 }
 
@@ -55,6 +56,7 @@ class App : Form {
 	readonly Timer timer = new Timer();
 	readonly ToolStripMenuItem restoreLatestItem = new ToolStripMenuItem();
 	readonly ToolStripMenuItem recentMenu = new ToolStripMenuItem();
+	readonly ToolStripMenuItem favoritesMenu = new ToolStripMenuItem();
 	readonly ToolStripMenuItem showHistoryItem = new ToolStripMenuItem();
 	readonly ToolStripMenuItem settingsItem = new ToolStripMenuItem();
 	readonly ToolStripMenuItem exitItem = new ToolStripMenuItem();
@@ -76,6 +78,7 @@ class App : Form {
 		menu.Items.Add( showHistoryItem );
 		menu.Items.Add( restoreLatestItem );
 		menu.Items.Add( recentMenu );
+		menu.Items.Add( favoritesMenu );
 		menu.Items.Add( new ToolStripSeparator() );
 		menu.Items.Add( settingsItem );
 		menu.Items.Add( exitItem );
@@ -116,6 +119,7 @@ class App : Form {
 		S.Init( Settings.Language ); // 言語が変わると S.LanguageChanged で各画面が更新される
 		showHistoryItem.Text = S.ShowHistory;
 		recentMenu.Text = S.RecentlyClosed;
+		favoritesMenu.Text = S.Favorites;
 		settingsItem.Text = S.SettingsMenu;
 		exitItem.Text = S.Exit;
 		restoreLatestItem.Text = S.RestoreLatest + ( Settings.HotkeyEnabled ? " (" + Settings.HotkeyText() + ")" : "" );
@@ -176,12 +180,20 @@ class App : Form {
 
 	void BuildRecentMenu() {
 		recentMenu.DropDownItems.Clear();
-		foreach( var e in closed.Take( 15 ) ) {
-			var entry = e;
-			recentMenu.DropDownItems.Add( new ToolStripMenuItem( e.Title + "  —  " + e.Current, null, ( s, a ) => Restore( entry ) ) { ToolTipText = e.ClosedAt.ToString( S.DateFormat ) } );
+		foreach( var e in closed.Where( c => !c.Favorite ).Take( 15 ) ) {
+			recentMenu.DropDownItems.Add( MenuItemOf( e ) );
 		}
-		recentMenu.Enabled = closed.Count > 0;
-		restoreLatestItem.Enabled = closed.Count > 0;
+		favoritesMenu.DropDownItems.Clear();
+		foreach( var e in closed.Where( c => c.Favorite ) ) {
+			favoritesMenu.DropDownItems.Add( MenuItemOf( e ) );
+		}
+		recentMenu.Enabled = recentMenu.DropDownItems.Count > 0;
+		favoritesMenu.Enabled = favoritesMenu.DropDownItems.Count > 0;
+		restoreLatestItem.Enabled = recentMenu.Enabled;
+	}
+
+	ToolStripMenuItem MenuItemOf( ClosedEntry e ) {
+		return new ToolStripMenuItem( e.Title + "  —  " + e.Current, null, ( s, a ) => Restore( e ) ) { ToolTipText = e.ClosedAt.ToString( S.DateFormat ) };
 	}
 
 	// ---- 監視 ----
@@ -253,10 +265,10 @@ class App : Form {
 	}
 
 	void TrimClosed() {
+		// お気に入りは上限の対象外
 		int max = Math.Max( 1, Settings.MaxClosed );
-		if( closed.Count > max ) {
-			closed.RemoveRange( max, closed.Count - max );
-		}
+		var over = closed.Where( c => !c.Favorite ).Skip( max ).ToList();
+		closed.RemoveAll( over.Contains );
 	}
 
 	void Changed() {
@@ -267,6 +279,15 @@ class App : Form {
 	}
 
 	// ---- 復元 ----
+	public void SetFavorite( IEnumerable<ClosedEntry> entries, bool favorite ) {
+		foreach( var e in entries ) {
+			e.Favorite = favorite;
+		}
+
+		TrimClosed();
+		Changed();
+	}
+
 	public void Remove( IEnumerable<ClosedEntry> entries ) {
 		foreach( var e in entries.ToList() ) {
 			closed.Remove( e );
@@ -276,8 +297,9 @@ class App : Form {
 	}
 
 	void RestoreLatest() {
-		if( closed.Count > 0 ) {
-			Restore( closed[0] );
+		var e = closed.FirstOrDefault( c => !c.Favorite );
+		if( e != null ) {
+			Restore( e );
 		}
 	}
 
@@ -286,7 +308,7 @@ class App : Form {
 	}
 
 	public async void Restore( ClosedEntry e ) {
-		closed.Remove( e ); Changed();
+		if( !e.Favorite ) { closed.Remove( e ); Changed(); }
 		bool withHistory = Settings.RestoreNavHistory && e.History.Count > 1;
 		string first = withHistory ? e.History[0] : e.Current;
 

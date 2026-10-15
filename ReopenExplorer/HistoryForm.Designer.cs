@@ -16,6 +16,7 @@ partial class HistoryForm
         this.restoreButton = new System.Windows.Forms.ToolStripButton();
         this.openLocationButton = new System.Windows.Forms.ToolStripButton();
         this.copyPathButton = new System.Windows.Forms.ToolStripButton();
+        this.favoriteButton = new System.Windows.Forms.ToolStripButton();
         this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
         this.deleteButton = new System.Windows.Forms.ToolStripButton();
         this.clearAllButton = new System.Windows.Forms.ToolStripButton();
@@ -26,6 +27,7 @@ partial class HistoryForm
         this.searchBox = new System.Windows.Forms.TextBox();
         this.split = new System.Windows.Forms.SplitContainer();
         this.list = new System.Windows.Forms.ListView();
+        this.colFavorite = new System.Windows.Forms.ColumnHeader();
         this.colName = new System.Windows.Forms.ColumnHeader();
         this.colLocation = new System.Windows.Forms.ColumnHeader();
         this.colCount = new System.Windows.Forms.ColumnHeader();
@@ -51,6 +53,7 @@ partial class HistoryForm
             this.restoreButton,
             this.openLocationButton,
             this.copyPathButton,
+            this.favoriteButton,
             this.toolStripSeparator1,
             this.deleteButton,
             this.clearAllButton,
@@ -81,6 +84,13 @@ partial class HistoryForm
         this.copyPathButton.Name = "copyPathButton";
         this.copyPathButton.Text = "パスをコピー";
         this.copyPathButton.Click += new System.EventHandler(this.copyPathButton_Click);
+        //
+        // favoriteButton
+        //
+        this.favoriteButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+        this.favoriteButton.Name = "favoriteButton";
+        this.favoriteButton.Text = "★ お気に入り";
+        this.favoriteButton.Click += new System.EventHandler(this.favoriteButton_Click);
         //
         // toolStripSeparator1
         //
@@ -165,6 +175,7 @@ partial class HistoryForm
         // list
         //
         this.list.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colFavorite,
             this.colName,
             this.colLocation,
             this.colCount,
@@ -179,6 +190,12 @@ partial class HistoryForm
         this.list.SelectedIndexChanged += new System.EventHandler(this.list_SelectedIndexChanged);
         this.list.DoubleClick += new System.EventHandler(this.list_DoubleClick);
         this.list.KeyDown += new System.Windows.Forms.KeyEventHandler(this.list_KeyDown);
+        //
+        // colFavorite
+        //
+        this.colFavorite.Text = "★";
+        this.colFavorite.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+        this.colFavorite.Width = 28;
         //
         // colName
         //
@@ -283,6 +300,7 @@ partial class HistoryForm
     private System.Windows.Forms.ToolStripButton restoreButton;
     private System.Windows.Forms.ToolStripButton openLocationButton;
     private System.Windows.Forms.ToolStripButton copyPathButton;
+    private System.Windows.Forms.ToolStripButton favoriteButton;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     private System.Windows.Forms.ToolStripButton deleteButton;
     private System.Windows.Forms.ToolStripButton clearAllButton;
@@ -293,6 +311,7 @@ partial class HistoryForm
     private System.Windows.Forms.TextBox searchBox;
     private System.Windows.Forms.SplitContainer split;
     private System.Windows.Forms.ListView list;
+    private System.Windows.Forms.ColumnHeader colFavorite;
     private System.Windows.Forms.ColumnHeader colName;
     private System.Windows.Forms.ColumnHeader colLocation;
     private System.Windows.Forms.ColumnHeader colCount;
