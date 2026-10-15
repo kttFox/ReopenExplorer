@@ -1,6 +1,10 @@
 # ReopenExplorer
 
+日本語 | [English](README.en.md)
+
 最近閉じたエクスプローラーのウィンドウを、**戻る/進むの履歴ごと**再度開けるタスクトレイ常駐アプリです（Windows 10 / 11）。
+
+![履歴一覧画面](docs/images/history-ja.png)
 
 ## 主な機能
 
@@ -52,6 +56,8 @@ dotnet publish ReopenExplorer/ReopenExplorer.csproj -c Release -r win-x64 --self
 下段の `▶` は閉じたときに表示していた位置です。グレーの行は「進む」側の履歴です。
 
 ### 設定
+
+![設定画面](docs/images/settings-ja.png)
 
 | 項目 | 既定値 |
 | --- | --- |
