@@ -2,7 +2,7 @@
 
 [日本語](README.md) | English
 
-A system tray app that reopens recently closed File Explorer windows **together with their back/forward history** (Windows 10 / 11).
+A system tray app that reopens recently closed File Explorer windows **together with their back/forward history**.
 
 ![History window](docs/images/history-en.png)
 
@@ -14,26 +14,13 @@ A system tray app that reopens recently closed File Explorer windows **together 
 - History window: search, reopen, open location only, copy path, delete
 - Shows the back/forward history of the selected window, and lets you open any single location from it
 - Settings: number of entries, history length, polling interval, language, hotkey, notifications, run at Windows startup
-- Japanese / English UI (follows the Windows display language by default). Other languages can be added with a language file
+- Japanese / English UI (defaults to the Windows display language).  
+Other languages can be added with a language file
 
 ## Requirements
 
 - Windows 10 / 11
 - [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0)
-
-## Build
-
-```bash
-dotnet build ReopenExplorer.slnx -c Release
-```
-
-Output: `ReopenExplorer/bin/Release/net10.0-windows/ReopenExplorer.exe`
-
-To publish as a single file:
-
-```bash
-dotnet publish ReopenExplorer/ReopenExplorer.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true
-```
 
 ## Usage
 
@@ -70,12 +57,9 @@ In the lower list, `▶` marks the location shown when the window was closed. Gr
 | Run at Windows startup | Off (registered under `HKCU\...\Run`) |
 | Hotkey | `Ctrl+Alt+Z` (click the key box and press a combination; the Win key is set with the checkbox) |
 
-## Development notes
+## Adding a language
 
-- `HistoryForm` and `SettingsForm` can be edited in the Visual Studio Forms Designer (`*.Designer.cs`).
-- UI strings live in language files `ReopenExplorer/Lang/{language code}.json`, which are copied to a `Lang` folder next to the executable at build time. Strings in the designer are English placeholders and are overwritten at runtime by `ApplyText()`.
-- To add a language, copy `en.json` to a name like `fr.json`, translate the values, and put the display name in `"_name"`. It appears automatically in the language list in Settings and takes effect immediately. Missing keys are shown in English.
-- To add a string, add a property to `Strings.cs` (key name = property name) and add the same key to each language file. `{0}` and similar are `string.Format` arguments.
+- To add a language, copy `en.json` to a name like `fr.json`, translate the values, and put the display name in `"_name"`.
 
 ## Data location
 

@@ -86,7 +86,7 @@ partial class SettingsForm
 		this.maxClosedLabel.AutoSize = true;
 		this.maxClosedLabel.Margin = new System.Windows.Forms.Padding(3, 0, 12, 0);
 		this.maxClosedLabel.Name = "maxClosedLabel";
-		this.maxClosedLabel.Text = "Closed windows to keep";
+		this.maxClosedLabel.Text = "閉じたウィンドウの記録数";
 		//
 		// maxClosed
 		//
@@ -103,7 +103,7 @@ partial class SettingsForm
 		this.maxHistoryLabel.AutoSize = true;
 		this.maxHistoryLabel.Margin = new System.Windows.Forms.Padding(3, 0, 12, 0);
 		this.maxHistoryLabel.Name = "maxHistoryLabel";
-		this.maxHistoryLabel.Text = "History entries per window";
+		this.maxHistoryLabel.Text = "1ウィンドウの履歴数";
 		//
 		// maxHistory
 		//
@@ -120,7 +120,7 @@ partial class SettingsForm
 		this.pollLabel.AutoSize = true;
 		this.pollLabel.Margin = new System.Windows.Forms.Padding(3, 0, 12, 0);
 		this.pollLabel.Name = "pollLabel";
-		this.pollLabel.Text = "Polling interval (ms)";
+		this.pollLabel.Text = "監視間隔 (ミリ秒)";
 		//
 		// poll
 		//
@@ -138,7 +138,7 @@ partial class SettingsForm
 		this.languageLabel.AutoSize = true;
 		this.languageLabel.Margin = new System.Windows.Forms.Padding(3, 0, 12, 0);
 		this.languageLabel.Name = "languageLabel";
-		this.languageLabel.Text = "Language";
+		this.languageLabel.Text = "言語";
 		//
 		// language
 		//
@@ -153,7 +153,7 @@ partial class SettingsForm
 		this.table.SetColumnSpan(this.restoreNav, 2);
 		this.restoreNav.Name = "restoreNav";
 		this.restoreNav.TabIndex = 5;
-		this.restoreNav.Text = "Restore back/forward history when reopening";
+		this.restoreNav.Text = "復元時に戻る/進む履歴も再現する";
 		//
 		// notify
 		//
@@ -161,7 +161,7 @@ partial class SettingsForm
 		this.table.SetColumnSpan(this.notify, 2);
 		this.notify.Name = "notify";
 		this.notify.TabIndex = 6;
-		this.notify.Text = "Notify when a window is closed";
+		this.notify.Text = "ウィンドウを閉じたときに通知する";
 		//
 		// startup
 		//
@@ -169,7 +169,7 @@ partial class SettingsForm
 		this.table.SetColumnSpan(this.startup, 2);
 		this.startup.Name = "startup";
 		this.startup.TabIndex = 7;
-		this.startup.Text = "Run at Windows startup";
+		this.startup.Text = "Windows起動時に実行する";
 		//
 		// hotkeyOn
 		//
@@ -177,7 +177,7 @@ partial class SettingsForm
 		this.table.SetColumnSpan(this.hotkeyOn, 2);
 		this.hotkeyOn.Name = "hotkeyOn";
 		this.hotkeyOn.TabIndex = 8;
-		this.hotkeyOn.Text = "Use hotkey";
+		this.hotkeyOn.Text = "ホットキーを使う";
 		this.hotkeyOn.CheckedChanged += new System.EventHandler(this.hotkeyOn_CheckedChanged);
 		//
 		// hotkeyLabel
@@ -186,7 +186,7 @@ partial class SettingsForm
 		this.hotkeyLabel.AutoSize = true;
 		this.hotkeyLabel.Margin = new System.Windows.Forms.Padding(3, 0, 12, 0);
 		this.hotkeyLabel.Name = "hotkeyLabel";
-		this.hotkeyLabel.Text = "Reopen last closed";
+		this.hotkeyLabel.Text = "直前を復元するキー";
 		//
 		// hotkeyPanel
 		//
@@ -221,7 +221,7 @@ partial class SettingsForm
 		this.table.SetColumnSpan(this.hotkeyHint, 2);
 		this.hotkeyHint.ForeColor = System.Drawing.SystemColors.GrayText;
 		this.hotkeyHint.Name = "hotkeyHint";
-		this.hotkeyHint.Text = "Click the key box and press the key combination";
+		this.hotkeyHint.Text = "キー欄をクリックして組み合わせを押してください";
 		//
 		// buttonPanel
 		//
@@ -241,7 +241,7 @@ partial class SettingsForm
 		this.cancelButton.Name = "cancelButton";
 		this.cancelButton.Size = new System.Drawing.Size(90, 27);
 		this.cancelButton.TabIndex = 1;
-		this.cancelButton.Text = "Cancel";
+		this.cancelButton.Text = "キャンセル";
 		//
 		// okButton
 		//
@@ -268,7 +268,7 @@ partial class SettingsForm
 		this.Name = "SettingsForm";
 		this.Padding = new System.Windows.Forms.Padding(12);
 		this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-		this.Text = "Settings";
+		this.Text = "設定";
 		this.table.ResumeLayout(false);
 		this.table.PerformLayout();
 		((System.ComponentModel.ISupportInitialize)(this.maxClosed)).EndInit();

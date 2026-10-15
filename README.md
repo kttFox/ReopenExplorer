@@ -2,7 +2,7 @@
 
 日本語 | [English](README.en.md)
 
-最近閉じたエクスプローラーのウィンドウを、**戻る/進むの履歴ごと**再度開けるタスクトレイ常駐アプリです（Windows 10 / 11）。
+最近閉じたエクスプローラーのウィンドウを、**戻る/進むの履歴ごと**再度開けるタスクトレイ常駐アプリです。
 
 ![履歴一覧画面](docs/images/history-ja.png)
 
@@ -14,26 +14,14 @@
 - 履歴一覧画面：検索、復元、場所だけ開く、パスのコピー、削除
 - 選択したウィンドウの戻る/進む履歴を一覧表示し、任意の場所だけ開くことも可能
 - 設定画面：記録数・履歴数・監視間隔・言語・ホットキー・通知・Windows 起動時の自動実行
-- 日本語 / 英語に対応（既定は Windows の表示言語に合わせる）。言語ファイルを追加すれば他の言語にも対応可能
+- 日本語 / 英語に対応（既定は Windows の表示言語）。  
+言語ファイルを追加すれば他の言語にも対応可能
 
 ## 動作環境
 
 - Windows 10 / 11
 - [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0)
 
-## ビルド
-
-```bash
-dotnet build ReopenExplorer.slnx -c Release
-```
-
-出力: `ReopenExplorer/bin/Release/net10.0-windows/ReopenExplorer.exe`
-
-単一ファイルにまとめる場合:
-
-```bash
-dotnet publish ReopenExplorer/ReopenExplorer.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true
-```
 
 ## 使い方
 
@@ -70,12 +58,9 @@ dotnet publish ReopenExplorer/ReopenExplorer.csproj -c Release -r win-x64 --self
 | Windows 起動時に実行 | オフ（`HKCU\...\Run` に登録） |
 | ホットキー | `Ctrl+Alt+Z`（キー欄をクリックして押した組み合わせに変更。Win キーはチェックボックスで指定） |
 
-## 開発メモ
+## 言語追加
 
-- `HistoryForm` と `SettingsForm` は Visual Studio のフォームデザイナーで編集できます（`*.Designer.cs`）。
-- 画面の文字列は言語ファイル `ReopenExplorer/Lang/{言語コード}.json` にあり、ビルド時に実行ファイルと同じ場所の `Lang` フォルダーへコピーされます。デザイナー上の文字列は英語の仮の値で、実行時に `ApplyText()` で上書きされます。
-- 言語を追加するには `en.json` をコピーして `fr.json` などの名前にし、値を翻訳して `"_name"` に表示名を書きます。設定画面の言語一覧に自動で表示され、選ぶとすぐに切り替わります。足りないキーは英語で表示されます。
-- 文字列を追加するときは、`Strings.cs` にプロパティ（キー名＝プロパティ名）を追加し、各言語ファイルに同じキーを追加します。`{0}` などは `string.Format` の引数です。
+- 言語を追加するには `en.json` をコピーして `fr.json` などの名前にし、値を翻訳して `"_name"` に表示名を書きます。
 
 ## データの保存先
 

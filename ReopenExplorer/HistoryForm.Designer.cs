@@ -65,21 +65,21 @@ partial class HistoryForm
         //
         this.restoreButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         this.restoreButton.Name = "restoreButton";
-        this.restoreButton.Text = "Reopen";
+        this.restoreButton.Text = "復元";
         this.restoreButton.Click += new System.EventHandler(this.restoreButton_Click);
         //
         // openLocationButton
         //
         this.openLocationButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         this.openLocationButton.Name = "openLocationButton";
-        this.openLocationButton.Text = "Open location";
+        this.openLocationButton.Text = "場所だけ開く";
         this.openLocationButton.Click += new System.EventHandler(this.openLocationButton_Click);
         //
         // copyPathButton
         //
         this.copyPathButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         this.copyPathButton.Name = "copyPathButton";
-        this.copyPathButton.Text = "Copy path";
+        this.copyPathButton.Text = "パスをコピー";
         this.copyPathButton.Click += new System.EventHandler(this.copyPathButton_Click);
         //
         // toolStripSeparator1
@@ -90,14 +90,14 @@ partial class HistoryForm
         //
         this.deleteButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         this.deleteButton.Name = "deleteButton";
-        this.deleteButton.Text = "Delete";
+        this.deleteButton.Text = "削除";
         this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
         //
         // clearAllButton
         //
         this.clearAllButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         this.clearAllButton.Name = "clearAllButton";
-        this.clearAllButton.Text = "Clear all";
+        this.clearAllButton.Text = "すべてクリア";
         this.clearAllButton.Click += new System.EventHandler(this.clearAllButton_Click);
         //
         // toolStripSeparator2
@@ -108,7 +108,7 @@ partial class HistoryForm
         //
         this.settingsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
         this.settingsButton.Name = "settingsButton";
-        this.settingsButton.Text = "Settings...";
+        this.settingsButton.Text = "設定...";
         this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
         //
         // searchPanel
@@ -133,13 +133,13 @@ partial class HistoryForm
         this.searchLabel.AutoSize = true;
         this.searchLabel.Name = "searchLabel";
         this.searchLabel.TabIndex = 0;
-        this.searchLabel.Text = "Search:";
+        this.searchLabel.Text = "検索:";
         //
         // searchBox
         //
         this.searchBox.Dock = System.Windows.Forms.DockStyle.Fill;
         this.searchBox.Name = "searchBox";
-        this.searchBox.PlaceholderText = "Filter by name or path";
+        this.searchBox.PlaceholderText = "名前・パスで絞り込み";
         this.searchBox.TabIndex = 1;
         this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
         //
@@ -182,23 +182,23 @@ partial class HistoryForm
         //
         // colName
         //
-        this.colName.Text = "Name";
+        this.colName.Text = "名前";
         this.colName.Width = 180;
         //
         // colLocation
         //
-        this.colLocation.Text = "Location";
+        this.colLocation.Text = "場所";
         this.colLocation.Width = 420;
         //
         // colCount
         //
-        this.colCount.Text = "History";
+        this.colCount.Text = "履歴数";
         this.colCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
         this.colCount.Width = 60;
         //
         // colClosedAt
         //
-        this.colClosedAt.Text = "Closed at";
+        this.colClosedAt.Text = "閉じた時刻";
         this.colClosedAt.Width = 140;
         //
         // detail
@@ -230,7 +230,7 @@ partial class HistoryForm
         //
         // colDetailLocation
         //
-        this.colDetailLocation.Text = "Location";
+        this.colDetailLocation.Text = "場所";
         this.colDetailLocation.Width = 760;
         //
         // detailLabel
@@ -239,7 +239,7 @@ partial class HistoryForm
         this.detailLabel.Name = "detailLabel";
         this.detailLabel.Size = new System.Drawing.Size(884, 20);
         this.detailLabel.TabIndex = 0;
-        this.detailLabel.Text = "Back/forward history";
+        this.detailLabel.Text = "戻る/進む履歴";
         this.detailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
         //
         // statusLabel
@@ -263,7 +263,7 @@ partial class HistoryForm
         this.KeyPreview = true;
         this.Name = "HistoryForm";
         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-        this.Text = "Closed Explorer windows";
+        this.Text = "閉じたエクスプローラーの履歴";
         this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HistoryForm_KeyDown);
         this.toolStrip.ResumeLayout(false);
         this.toolStrip.PerformLayout();
